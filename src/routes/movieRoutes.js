@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
     res.json({ message: 'Movie created successfully!' });
 });
 
-router.push('/', (req, res) => {
+router.put('/', (req, res) => {
     res.json({ message: 'Movie updated successfully!' });
 });
 

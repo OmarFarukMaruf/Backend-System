@@ -5,20 +5,22 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider      = "prisma-client-js"
+  provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
 }
+
 // to migrate the database, run `npx prisma migrate dev --name add_users_table` in your terminal
 model User {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
 
-  movies Movie[] @relation("MoviesCreator")
+  movies            Movie[]           @relation("MoviesCreator")
   watchingListItems WachingListItem[]
 }
 
@@ -29,20 +31,20 @@ model Movie {
   description String
   releaseYear Int
   genre       String[] @default([])
-  posterURL  String?
+  posterURL   String?
   createdAt   DateTime @default(now())
 
-
-  creator User @relation("MoviesCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator           User              @relation("MoviesCreator", fields: [creatorId], references: [id], onDelete: Cascade)
   watchingListItems WachingListItem[]
 }
 
 model WachingListItem {
-  id        String   @id @default(uuid())
+  id        String         @id @default(uuid())
   userId    String
   movieId   String
-  status WatchingStatus @default(PLAN_TO_WATCH)
-  createdAt DateTime @default(now())
+  title     String?
+  status    WatchingStatus @default(PLAN_TO_WATCH)
+  createdAt DateTime       @default(now())
 
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)

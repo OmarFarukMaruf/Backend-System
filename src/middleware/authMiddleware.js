@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-    import { prisma } from '../config/db.js';
+import { prisma } from '../config/db.js';
 
 const authMiddleware = async (req, res, next) => {
     // read the token from the request header
@@ -26,7 +26,6 @@ const authMiddleware = async (req, res, next) => {
         const user = await prisma.user.findUnique({
             where: { id: userId }
         });
-
         if (!user) {
             return res.status(401).json({ message: "User not found, authorization denied" });
         }

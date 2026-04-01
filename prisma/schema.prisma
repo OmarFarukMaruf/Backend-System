@@ -42,7 +42,6 @@ model WachingListItem {
   id        String         @id @default(uuid())
   userId    String
   movieId   String
-  title     String?
   status    WatchingStatus @default(PLAN_TO_WATCH)
   createdAt DateTime       @default(now())
 
